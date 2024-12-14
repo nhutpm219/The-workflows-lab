@@ -17,6 +17,7 @@ jobs:
     uses: nhutpm219/.github/.github/workflows/test-workflow-2.yml@master
     with:
       config-path: input the config-path from child repo
+    secrets: inherit
 
   job2:
     runs-on: ubuntu-latest
