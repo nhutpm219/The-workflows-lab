@@ -9,9 +9,14 @@ jobs:
   
   echo_the_params:
     uses: nhutpm219/.github/.github/workflows/test-workflow-1.yml@master
+    with:
+      the-parameters-1: input params 1 from child repo
+      the-parameters-2: input params 2 from child repo
 
   echo_the_config_path:
     uses: nhutpm219/.github/.github/workflows/test-workflow-2.yml@master
+    with:
+      config-path: input the config-path from child repo
 
   job2:
     runs-on: ubuntu-latest
