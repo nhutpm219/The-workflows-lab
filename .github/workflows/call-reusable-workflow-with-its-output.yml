@@ -6,6 +6,12 @@ on:
 jobs:
   job1:
     uses: nhutpm219/.github/.github/workflows/workflow-use-output.yml@master
+  
+  echo_the_params:
+    uses: nhutpm219/.github/.github/workflows/test-workflow-1.yml@master
+
+  echo_the_config_path:
+    uses: nhutpm219/.github/.github/workflows/test-workflow-2.yml@master
 
   job2:
     runs-on: ubuntu-latest
