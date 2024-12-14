@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: call_composite_action
-        uses: nhutpm219/.github/.github/workflows/composite-hello-world-steps@master
+        uses: nhutpm219/.github/.github/composite-hello-world-steps@master
         with:
           who-to-greet: 'Alexander the Great'
       - run: echo random-number "$RANDOM_NUMBER"
