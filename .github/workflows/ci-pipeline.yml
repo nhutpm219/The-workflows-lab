@@ -25,5 +25,5 @@ jobs:
     needs: read-yaml
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
     with:
-      app-name: ${{ needs.read-yaml.steps.parse-variable.outputs['app-name'] }}
-      app-type: ${{ needs.read-yaml.steps.parse-variable.outputs['app-type'] }}
+      app-name: ${{ needs.read-yaml.outputs['app-name'] }}
+      app-type: ${{ needs.read-yaml.outputs['app-type'] }}
