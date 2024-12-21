@@ -6,7 +6,7 @@ on:
 jobs:
   read-yaml:
     runs-on: ubuntu-latest
-    output: 
+    outputs: 
       app-name: ${{ steps.parse-variable.outputs.app-name }}
       app-type: ${{ steps.parse-variable.outputs.app-type }}
     steps:
