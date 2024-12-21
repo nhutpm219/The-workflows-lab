@@ -4,9 +4,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  read-yaml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read YAML file
+        id: read-yaml
+        run: |
+          echo "Reading variables from variables.yml"
+          app_name=$(yq e '.app-name' variables.yml)
+          app_type=$(yq e '.app-type' variables.yml)
+          echo "app-name=$app_name" >> $GITHUB_ENV
+          echo "app-type=$app_type" >> $GITHUB_ENV
+        env:
+          FILE: variables.yml
+
+      - name: Use variables
+        run: |
+          echo "App Name: ${{ env.app-name }}"
+          echo "App Type: ${{ env.app-type }}"
+
   ci_pipelines:
     name: Call CI workflows
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
     with:
-      app-name: landing page
-      app-type: nodejs
+      app-name: ${{ env.app-name }}"
+      app-type: ${{ env.app-type }}"
