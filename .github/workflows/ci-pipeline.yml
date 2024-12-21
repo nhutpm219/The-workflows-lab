@@ -18,12 +18,12 @@ jobs:
 
       - name: Verify output from parse variable
         run: |
-          echo "App Name: ${{ steps.parse-variable.outputs['app-name'] }}"
-          echo "App Type: ${{ steps.parse-variable.outputs['app-type'] }}"
+          echo "App Name: ${{ steps.parse-variable.outputs.app-name }}"
+          echo "App Type: ${{ steps.parse-variable.outputs.app-type }}"
 
   ci_pipelines:
     needs: read-yaml
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
     with:
-      app-name: ${{ needs.read-yaml.outputs['app-name'] }}
-      app-type: ${{ needs.read-yaml.outputs['app-type'] }}
+      app-name: ${{ needs.read-yaml.outputs.app-name }}
+      app-type: ${{ needs.read-yaml.outputs.app-type }}
