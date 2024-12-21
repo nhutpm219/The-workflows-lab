@@ -5,6 +5,7 @@ on:
 
 jobs:
   ci:
+    name: Call CI workflows
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
     with:
       app-name: landing page
