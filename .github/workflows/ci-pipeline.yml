@@ -1,0 +1,5 @@
+name: CI Pipeline
+
+jobs:
+  ci:
+    uses: nhutpm219/.github/.github/workflows/ci.yml@master
