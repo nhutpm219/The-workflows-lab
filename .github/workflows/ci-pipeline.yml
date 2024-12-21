@@ -7,29 +7,40 @@ jobs:
   read-yaml:
     runs-on: ubuntu-latest
 
+    outputs:
+      app-name: ${{ steps.set-env.outputs.app-name }}
+      app-type: ${{ steps.set-env.outputs.app-type }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # - name: Install yq
+      #   run: |
+      #     sudo wget https://github.com/mikefarah/yq/releases/download/v4.9.8/yq_linux_amd64 -O /usr/bin/yq
+      #     sudo chmod +x /usr/bin/yq
+
       - name: Read YAML file
-        id: read-yaml
+        id: set-env
         run: |
           echo "Reading variables from variables.yml"
           app_name=$(yq e '.app-name' variables.yml)
           app_type=$(yq e '.app-type' variables.yml)
-          echo "app-name=$app_name" >> $GITHUB_ENV
-          echo "app-type=$app_type" >> $GITHUB_ENV
-        env:
-          FILE: variables.yml
+          echo "::set-output name=app-name::$app_name"
+          echo "::set-output name=app-type::$app_type"
 
       - name: Use variables
         run: |
-          echo "App Name: ${{ env.app-name }}"
-          echo "App Type: ${{ env.app-type }}"
+          echo "App Name: ${{ steps.set-env.outputs.app-name }}"
+          echo "App Type: ${{ steps.set-env.outputs.app-type }}"
 
   ci_pipelines:
-    name: Call CI workflows
-    uses: nhutpm219/.github/.github/workflows/ci.yml@master
-    with:
-      app-name: ${{ env.app-name }}"
-      app-type: ${{ env.app-type }}"
+    needs: read-yaml
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call CI workflows
+        uses: nhutpm219/.github/.github/workflows/ci.yml@master
+        with:
+          app-name: ${{ needs.read-yaml.outputs['app-name'] }}
+          app-type: ${{ needs.read-yaml.outputs['app-type'] }}
