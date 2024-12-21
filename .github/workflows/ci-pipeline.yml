@@ -17,12 +17,12 @@ jobs:
         id: parse-variable
         uses: nhutpm219/.github/.github/parse-variable@master
         with:
-          file: ./variables.yml
+          file: variables.yml
 
       - name: Use variables
         run: |
-          echo "App Name: ${{ steps.parse-variable.outputs.app-name }}"
-          echo "App Type: ${{ steps.parse-variable.outputs.app-type }}"
+          echo "App Name: ${{ steps.parse-variable.outputs['app-name'] }}"
+          echo "App Type: ${{ steps.parse-variable.outputs['app-type'] }}"
 
   ci_pipelines:
     needs: read-yaml
