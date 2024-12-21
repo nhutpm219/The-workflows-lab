@@ -36,11 +36,7 @@ jobs:
 
   ci_pipelines:
     needs: read-yaml
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Call CI workflows
-        uses: nhutpm219/.github/.github/workflows/ci.yml@master
-        with:
-          app-name: ${{ needs.read-yaml.outputs['app-name'] }}
-          app-type: ${{ needs.read-yaml.outputs['app-type'] }}
+    uses: nhutpm219/.github/.github/workflows/ci.yml@master
+    with:
+      app-name: ${{ needs.read-yaml.outputs['app-name'] }}
+      app-type: ${{ needs.read-yaml.outputs['app-type'] }}
