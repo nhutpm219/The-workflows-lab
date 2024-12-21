@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
+  ci_pipelines:
     name: Call CI workflows
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
     with:
