@@ -10,11 +10,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: debug
+        run: pwd && ls -al
+
       - name: Performing parse the variable
         id: parse-variable
         uses: nhutpm219/.github/.github/parse-variable@master
         with:
-          file: variables.yml
+          file: ./variables.yml
 
       - name: Use variables
         run: |
