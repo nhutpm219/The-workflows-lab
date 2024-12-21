@@ -6,6 +6,9 @@ on:
 jobs:
   read-yaml:
     runs-on: ubuntu-latest
+    output: 
+      app-name: ${{ steps.parse-variable.outputs.app-name }}
+      app-type: ${{ steps.parse-variable.outputs.app-type }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
