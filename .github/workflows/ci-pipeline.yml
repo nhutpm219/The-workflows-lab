@@ -6,33 +6,20 @@ on:
 jobs:
   read-yaml:
     runs-on: ubuntu-latest
-
-    outputs:
-      app-name: ${{ steps.set-env.outputs.app-name }}
-      app-type: ${{ steps.set-env.outputs.app-type }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # - name: Install yq
-      #   run: |
-      #     sudo wget https://github.com/mikefarah/yq/releases/download/v4.9.8/yq_linux_amd64 -O /usr/bin/yq
-      #     sudo chmod +x /usr/bin/yq
-
-      - name: Read YAML file
-        id: set-env
-        run: |
-          echo "Reading variables from variables.yml"
-          app_name=$(yq e '.app-name' variables.yml)
-          app_type=$(yq e '.app-type' variables.yml)
-          echo "::set-output name=app-name::$app_name"
-          echo "::set-output name=app-type::$app_type"
+      - name: Performing parse the variable
+        id: parse-variable
+        uses: nhutpm219/.github/actions/parse-variable@master
+        with:
+          file: variables.yml
 
       - name: Use variables
         run: |
-          echo "App Name: ${{ steps.set-env.outputs.app-name }}"
-          echo "App Type: ${{ steps.set-env.outputs.app-type }}"
+          echo "App Name: ${{ steps.parse-variable.outputs.app-name }}"
+          echo "App Type: ${{ steps.parse-variable.outputs.app-type }}"
 
   ci_pipelines:
     needs: read-yaml
