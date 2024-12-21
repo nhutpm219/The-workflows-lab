@@ -12,7 +12,7 @@ jobs:
 
       - name: Performing parse the variable
         id: parse-variable
-        uses: nhutpm219/.github/actions/parse-variable@master
+        uses: nhutpm219/.github/.github/parse-variable@master
         with:
           file: variables.yml
 
