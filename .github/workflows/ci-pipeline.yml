@@ -1,5 +1,11 @@
 name: CI Pipeline
 
+on:
+  workflow_dispatch:
+
 jobs:
   ci:
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
+    with:
+      app-name: input params 1 from child repo
+      the-parameters-2: input params 2 from child repo
