@@ -10,16 +10,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: debug
-        run: pwd && ls -al
-
       - name: Performing parse the variable
         id: parse-variable
         uses: nhutpm219/.github/.github/parse-variable@master
         with:
           file: variables.yml
 
-      - name: Use variables
+      - name: Verify output from parse variable
         run: |
           echo "App Name: ${{ steps.parse-variable.outputs['app-name'] }}"
           echo "App Type: ${{ steps.parse-variable.outputs['app-type'] }}"
@@ -28,5 +25,5 @@ jobs:
     needs: read-yaml
     uses: nhutpm219/.github/.github/workflows/ci.yml@master
     with:
-      app-name: ${{ needs.read-yaml.parse-variable.outputs['app-name'] }}
-      app-type: ${{ needs.read-yaml.parse-variable.outputs['app-type'] }}
+      app-name: ${{ needs.read-yaml.steps.parse-variable.outputs['app-name'] }}
+      app-type: ${{ needs.read-yaml.steps.parse-variable.outputs['app-type'] }}
